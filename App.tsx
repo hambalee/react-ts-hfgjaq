@@ -1,37 +1,35 @@
 import * as React from 'react';
 import './style.css';
-import Input from './Input';
+
+function Example() {
+  React.useState();
+  const abc = () => {};
+  React.useEffect(() => {});
+  return <div>test</div>;
+}
 
 export default function App() {
-  const [state, setState] = React.useState({ firstName: '', lastName: '' });
+  const [num, setNum] = React.useState(null);
+  const [value, setValue] = React.useState(false);
+
+  React.useEffect(() => {
+    setValue(num % 10 === 0);
+  }, [num]);
+
   const onSubmit = (event) => {
     event.preventDefault();
-    window.alert(`${state.firstName} : ${state.lastName}`);
+    setNum(event.target.num.value);
   };
-  const onChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setState((prevState) => ({ ...prevState, [name]: value }));
-  };
+
   return (
-    <React.Fragment>
-      <div>
-        <form onSubmit={onSubmit}>
-          <input
-            name="firstName"
-            value={state.firstName}
-            onChange={onChange}
-            required
-          />
-          <input
-            name="lastName"
-            value={state.lastName}
-            onChange={onChange}
-            required
-          />
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-    </React.Fragment>
+    <div>
+      <div>number : {num}</div>
+      <div>{num % 2 === 0 ? 'even' : 'odd'}</div>
+      <div>{value && 'useEffect'}</div>
+      <form onSubmit={onSubmit}>
+        <input type="number" name="num" required />
+        <input type="submit" />
+      </form>
+    </div>
   );
 }
