@@ -2,38 +2,36 @@ import * as React from 'react';
 import './style.css';
 import Input from './Input';
 
-const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 export default function App() {
-  const [text, setText] = React.useState('');
-  const [input, setInput] = React.useState('');
-
-  const handleClick = (item) => {
-    item % 2 === 0 ? setText('even') : setText('odd');
+  const [state, setState] = React.useState({ firstName: '', lastName: '' });
+  const onSubmit = (event) => {
+    event.preventDefault();
+    window.alert(`${state.firstName} : ${state.lastName}`);
   };
-
-  const onChange = (v) => {
-    console.log(v);
+  const onChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setState((prevState) => ({ ...prevState, [name]: value }));
   };
-
   return (
     <React.Fragment>
-      {/* even Or odd
       <div>
-        {items.map((item) => {
-          return (
-            <button key={item} onClick={() => handleClick(item)}>
-              {item}
-            </button>
-          );
-        })}
+        <form onSubmit={onSubmit}>
+          <input
+            name="firstName"
+            value={state.firstName}
+            onChange={onChange}
+            required
+          />
+          <input
+            name="lastName"
+            value={state.lastName}
+            onChange={onChange}
+            required
+          />
+          <button type="submit">Submit</button>
+        </form>
       </div>
-      <div>{text}</div> */}
-      {/*  */}
-      <div>test</div>
-      <input />
-      <input />
-      <Input onValueChange={onChange} />
     </React.Fragment>
   );
 }
