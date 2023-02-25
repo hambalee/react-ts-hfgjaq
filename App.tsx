@@ -9,27 +9,23 @@ function Example() {
 }
 
 export default function App() {
-  const [num, setNum] = React.useState(null);
-  const [value, setValue] = React.useState(false);
+  const [count, seCount] = React.useState(0);
+  const [name, setName] = React.useState('');
 
-  React.useEffect(() => {
-    setValue(num % 10 === 0);
-  }, [num]);
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    setNum(event.target.num.value);
+  const onClick = (event) => {
+    // seCount((count) => count + 1);
+    seCount((count) => count + 1);
+    setName('hello');
   };
+
+  console.log('rendered');
 
   return (
     <div>
-      <div>number : {num}</div>
-      <div>{num % 2 === 0 ? 'even' : 'odd'}</div>
-      <div>{value && 'useEffect'}</div>
-      <form onSubmit={onSubmit}>
-        <input type="number" name="num" required />
-        <input type="submit" />
-      </form>
+      <div>
+        {count} {name}
+      </div>
+      <button onClick={onClick}>Click</button>
     </div>
   );
 }
